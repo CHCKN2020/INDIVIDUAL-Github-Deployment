@@ -1,0 +1,552 @@
+:root {
+  --bg: #050505;
+  --bg-panel: #151515;
+  --bg-soft: #101010;
+  --fg: #ffffff;
+  --muted: #b3b3b3;
+  --accent: #ff4242;
+  --accent-soft: #ff7a7a;
+  --radius-lg: 18px;
+  --shadow-glow: 0 0 22px rgba(255, 66, 66, 0.55);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #222 0, #000 55%);
+  color: var(--fg);
+}
+
+/* TOP BAR */
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 3rem;
+  background: rgba(0, 0, 0, 0.92);
+  border-bottom: 1px solid #202020;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  border: 2px solid #fff;
+  font-size: 1.4rem;
+}
+
+.logo-text {
+  font-family: "Anton", system-ui;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  color: var(--fg);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.25rem;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Generic layout */
+
+main {
+  padding: 2rem 2.5rem 4rem;
+}
+
+.screen {
+  display: none;
+  min-height: calc(100vh - 120px);
+}
+
+.screen.active {
+  display: block;
+}
+
+.screen-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Buttons */
+
+.btn {
+  border: none;
+  cursor: pointer;
+  font-family: "Anton", system-ui;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.9rem 2.5rem;
+  border-radius: 999px;
+  background: #222;
+  color: var(--fg);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  font-size: 0.9rem;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  box-shadow: var(--shadow-glow);
+  color: #fff;
+}
+
+.btn.neon {
+  background: linear-gradient(135deg, #ff3e3e, #ff7c7c);
+  box-shadow: var(--shadow-glow);
+  color: #fff;
+}
+
+.btn.big {
+  padding-inline: 3.5rem;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+}
+
+/* Titles */
+
+.section-title,
+.screen-heading {
+  font-family: "Anton", system-ui;
+  font-size: clamp(2.1rem, 3vw, 2.6rem);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  text-align: left;
+}
+
+/* Booking layout */
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.booking-left {
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  padding: 2.2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+  border: 1px solid #2a2a2a;
+}
+
+.slot-columns {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.slot-day {
+  flex: 1 1 160px;
+  min-width: 0;
+  background: var(--bg-soft);
+  padding: 1.1rem;
+  border-radius: 16px;
+  border: 1px solid #303030;
+}
+
+.slot-day h3 {
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.12em;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.slot-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.slot-btn {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid #3d3d3d;
+  background: #111;
+  color: var(--fg);
+  padding: 0.5rem 0.2rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.08em;
+}
+
+.slot-btn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  box-shadow: var(--shadow-glow);
+  border-color: transparent;
+}
+
+/* Booking right */
+
+.booking-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.photo-frame {
+  width: 100%;
+  border-radius: 34px;
+  border: 2px solid #444;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+}
+
+.photo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.membership-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.1rem;
+}
+
+.membership-btn.active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.mini-hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ABOUT LAYOUT */
+
+.about-layout {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.side-banner {
+  width: 180px;
+  min-height: 320px;
+  border-right: 2px solid #333;
+  padding-top: 3rem;
+  text-align: center;
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.side-logo-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  background: #111;
+}
+
+.about-main {
+  padding: 1rem 0 3rem;
+}
+
+.about-panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.8rem;
+  background: var(--bg-panel);
+  border: 1px solid #333;
+}
+
+.white-card {
+  background: #fdfdfd;
+  color: #111;
+}
+
+.white-card h3 {
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.white-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+}
+
+.features-panel {
+  margin-bottom: 2rem;
+}
+
+.features-panel h3 {
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+/* TRAINERS */
+
+.trainers-layout {
+  padding: 2rem 0 3rem;
+}
+
+.trainer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.trainer-card {
+  background: var(--bg-panel);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #333;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 1.2rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.trainer-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+}
+
+.trainer-card h3 {
+  font-family: "Anton", system-ui;
+  margin: 0.9rem 0 0.2rem;
+}
+
+.trainer-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.trainer-card.active {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px);
+}
+
+/* STUDENT INFO */
+
+.student-layout {
+  padding: 2rem 0 3rem;
+}
+
+.student-subheading {
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.student-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem;
+  border: 1px solid #333;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.input-group label {
+  font-family: "Anton", system-ui;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+}
+
+.input-group input {
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: #050505;
+  color: var(--fg);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 1px rgba(255, 66, 66, 0.4);
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+/* SUMMARY */
+
+.summary-layout {
+  padding: 2rem 0 3rem;
+}
+
+.summary-intro {
+  text-align: center;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto 1.8rem;
+}
+
+.summary-card p {
+  margin: 0.25rem 0;
+}
+
+/* Shared nav-buttons row */
+
+.nav-buttons-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.8rem;
+}
+
+/* Footer */
+
+.site-footer {
+  border-top: 1px solid #222;
+  padding: 1rem 2.5rem 1.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Responsive */
+
+@media (max-width: 960px) {
+  main {
+    padding-inline: 1.2rem;
+  }
+
+  .booking-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side-banner {
+    display: none;
+  }
+
+  .trainer-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .input-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+  }
+
+  .nav-buttons-row {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

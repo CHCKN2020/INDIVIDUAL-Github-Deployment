@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gym Fitness Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Optional Google Font for bold gym look -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="logo-wrap">
+      <div class="logo-icon">🏋️‍♂️</div>
+      <div class="logo-text">
+        GYM FITNESS<br />
+        MANAGEMENT SYSTEM
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#" data-screen="booking">Book</a>
+      <a href="#" data-screen="about">About</a>
+      <a href="#" data-screen="trainers">Trainers</a>
+      <a href="#" data-screen="student">Details</a>
+      <a href="#" data-screen="summary">Summary</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SCREEN 1: BOOKING (slots + membership) -->
+    <section id="screen-booking" class="screen active">
+      <div class="screen-inner booking-layout">
+        <div class="booking-left">
+          <h2 class="section-title">Choose Slot &amp; Confirm Details</h2>
+
+          <div class="slot-columns">
+            <!-- Monday -->
+            <div class="slot-day">
+              <h3>MON</h3>
+              <div class="slot-buttons">
+                <button class="slot-btn" data-day="Monday" data-time="12:30 PM">12:30 PM</button>
+                <button class="slot-btn" data-day="Monday" data-time="2:00 PM">2:00 PM</button>
+                <button class="slot-btn" data-day="Monday" data-time="4:00 PM">4:00 PM</button>
+                <button class="slot-btn" data-day="Monday" data-time="6:00 PM">6:00 PM</button>
+              </div>
+            </div>
+
+            <!-- Tuesday -->
+            <div class="slot-day">
+              <h3>TUE</h3>
+              <div class="slot-buttons">
+                <button class="slot-btn" data-day="Tuesday" data-time="12:30 PM">12:30 PM</button>
+                <button class="slot-btn" data-day="Tuesday" data-time="2:00 PM">2:00 PM</button>
+                <button class="slot-btn" data-day="Tuesday" data-time="4:00 PM">4:00 PM</button>
+                <button class="slot-btn" data-day="Tuesday" data-time="6:00 PM">6:00 PM</button>
+              </div>
+            </div>
+
+            <!-- Wednesday -->
+            <div class="slot-day">
+              <h3>WED</h3>
+              <div class="slot-buttons">
+                <button class="slot-btn" data-day="Wednesday" data-time="12:30 PM">12:30 PM</button>
+                <button class="slot-btn" data-day="Wednesday" data-time="2:00 PM">2:00 PM</button>
+                <button class="slot-btn" data-day="Wednesday" data-time="4:00 PM">4:00 PM</button>
+                <button class="slot-btn" data-day="Wednesday" data-time="6:00 PM">6:00 PM</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn primary big" data-goto="screen-student">
+            Book Now
+          </button>
+        </div>
+
+        <div class="booking-right">
+          <div class="photo-frame">
+            <img
+              src="https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="People lifting weights"
+            />
+          </div>
+
+          <div class="membership-buttons">
+            <button class="btn neon membership-btn" data-type="Regular">REGULAR</button>
+            <button class="btn neon membership-btn" data-type="Student">STUDENT</button>
+            <button class="btn neon membership-btn" data-type="VIP">VIP</button>
+          </div>
+
+          <p className="mini-hint">
+            Tip: select a timeslot on the left and membership on the right.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: ABOUT / FEATURES (reference style) -->
+    <section id="screen-about" class="screen">
+      <div class="screen-inner about-layout">
+        <div class="side-banner">
+          <div class="side-logo-icon">🏋️‍♂️</div>
+          <p>GYM FITNESS<br />MANAGEMENT<br />SYSTEM</p>
+        </div>
+
+        <div class="about-main">
+          <h2 class="screen-heading">about us</h2>
+
+          <div class="about-panels">
+            <div class="card white-card">
+              <p>
+                The Gym Fitness Management System is a web-based platform that helps manage
+                gym operations such as member registration, trainer information,
+                and workout schedules. It aims to make it easier for both staff and members
+                to keep track of fitness plans, payments, and training sessions.
+              </p>
+            </div>
+
+            <div class="card white-card">
+              <h3>Project Objectives</h3>
+              <ul>
+                <li>To simplify gym membership registration and record keeping.</li>
+                <li>To manage trainer information and their assigned members.</li>
+                <li>To organize workout schedules and class bookings.</li>
+                <li>To track member progress and payment status.</li>
+                <li>To improve communication between gym staff, trainers, and members.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="features-panel">
+            <h3>Features and Functionalities</h3>
+            <ul>
+              <li>Member registration and profile management</li>
+              <li>Trainer database and specialization records</li>
+              <li>Workout/class scheduling</li>
+              <li>Payment tracking and progress monitoring</li>
+            </ul>
+          </div>
+
+          <div class="nav-buttons-row">
+            <button class="btn neon" data-goto="screen-booking">BACK</button>
+            <button class="btn neon" data-goto="screen-trainers">NEXT</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: TRAINER SELECTION -->
+    <section id="screen-trainers" class="screen">
+      <div class="screen-inner trainers-layout">
+        <h2 class="screen-heading">Select Trainer</h2>
+
+        <div class="trainer-grid">
+          <div class="trainer-card" data-trainer="Coach Mark">
+            <img
+              src="https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Trainer Mark"
+            />
+            <h3>Coach Mark</h3>
+            <p>Strength &amp; Conditioning</p>
+          </div>
+
+          <div class="trainer-card" data-trainer="Coach Alex">
+            <img
+              src="https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Trainer Alex"
+            />
+            <h3>Coach Alex</h3>
+            <p>Functional Training</p>
+          </div>
+
+          <div class="trainer-card" data-trainer="Coach Mia">
+            <img
+              src="https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Trainer Mia"
+            />
+            <h3>Coach Mia</h3>
+            <p>Cardio &amp; Group Classes</p>
+          </div>
+        </div>
+
+        <div class="nav-buttons-row">
+          <button class="btn neon" data-goto="screen-about">BACK</button>
+          <button class="btn neon" data-goto="screen-booking">NEXT: SLOTS</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: STUDENT INFO -->
+    <section id="screen-student" class="screen">
+      <div class="screen-inner student-layout">
+        <h2 class="screen-heading">Gym Fitness Management System</h2>
+        <h3 class="student-subheading">Student Information</h3>
+
+        <form id="booking-form" class="student-form">
+          <div class="input-row">
+            <div class="input-group">
+              <label for="firstName">First</label>
+              <input id="firstName" type="text" required />
+            </div>
+            <div class="input-group">
+              <label for="middleName">Middle</label>
+              <input id="middleName" type="text" />
+            </div>
+            <div class="input-group">
+              <label for="lastName">Last</label>
+              <input id="lastName" type="text" required />
+            </div>
+          </div>
+
+          <h3 class="student-subheading">Birth Date</h3>
+          <div class="input-row">
+            <div class="input-group">
+              <label for="birthMonth">MM</label>
+              <input id="birthMonth" type="number" min="1" max="12" required />
+            </div>
+            <div class="input-group">
+              <label for="birthDay">DD</label>
+              <input id="birthDay" type="number" min="1" max="31" required />
+            </div>
+            <div class="input-group">
+              <label for="birthYear">YYYY</label>
+              <input id="birthYear" type="number" min="1900" max="2100" required />
+            </div>
+          </div>
+
+          <p class="form-note">
+            Please make sure that you fill all the details, choose a membership,
+            trainer, and slot before submitting.
+          </p>
+
+          <div class="nav-buttons-row">
+            <button type="button" class="btn neon" data-goto="screen-booking">
+              BACK
+            </button>
+            <button type="submit" class="btn primary big">
+              BOOK NOW &amp; SAVE
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: SUMMARY (READ FROM LOCALSTORAGE) -->
+    <section id="screen-summary" class="screen">
+      <div class="screen-inner summary-layout">
+        <h2 class="screen-heading">Booking Summary</h2>
+        <p class="summary-intro">
+          This section reads your saved data from
+          <strong>localStorage</strong> using JSON.
+        </p>
+
+        <div id="summary-card" class="card white-card summary-card">
+          <!-- Filled by script.js -->
+          <p>No bookings saved yet.</p>
+        </div>
+
+        <div class="nav-buttons-row">
+          <button class="btn neon" data-goto="screen-student">BACK</button>
+          <button class="btn neon" id="reload-summary-btn">RELOAD SAVED DATA</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Gym Fitness Management System • Front-end Project • JSON + localStorage Demo</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

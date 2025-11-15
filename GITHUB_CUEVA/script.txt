@@ -1,0 +1,187 @@
+// STATE
+let selectedSlot = null;
+let selectedMembership = null;
+let selectedTrainer = null;
+
+// HELPERS
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach((screen) => {
+    screen.classList.toggle("active", screen.id === id);
+  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function loadLastBooking() {
+  const card = document.getElementById("summary-card");
+  const raw = localStorage.getItem("gymBookings");
+
+  if (!raw) {
+    card.innerHTML = "<p>No bookings saved yet.</p>";
+    return;
+  }
+
+  let bookings;
+  try {
+    bookings = JSON.parse(raw);
+  } catch (err) {
+    console.error("Failed to parse JSON from localStorage", err);
+    card.innerHTML =
+      "<p>Saved data is corrupted or not valid JSON. You can clear it from DevTools.</p>";
+    return;
+  }
+
+  if (!Array.isArray(bookings) || bookings.length === 0) {
+    card.innerHTML = "<p>No bookings saved yet.</p>";
+    return;
+  }
+
+  const last = bookings[bookings.length - 1];
+  const fullName =
+    (last.student?.firstName || "") +
+    " " +
+    (last.student?.middleName || "") +
+    " " +
+    (last.student?.lastName || "");
+
+  const dob = `${last.student?.birthMonth || "MM"}/${
+    last.student?.birthDay || "DD"
+  }/${last.student?.birthYear || "YYYY"}`;
+
+  card.innerHTML = `
+    <h3 style="margin-top:0;">Latest Saved Booking</h3>
+    <p><strong>Name:</strong> ${fullName.trim()}</p>
+    <p><strong>Birth Date:</strong> ${dob}</p>
+    <p><strong>Membership Type:</strong> ${last.membershipType || "Not set"}</p>
+    <p><strong>Trainer:</strong> ${last.trainer || "Not set"}</p>
+    <p><strong>Slot:</strong> ${
+      last.slot ? `${last.slot.day}, ${last.slot.time}` : "Not set"
+    }</p>
+    <p><strong>Saved At:</strong> ${last.savedAt || "Unknown"}</p>
+  `;
+}
+
+// INITIALIZE EVENTS AFTER DOM LOAD
+
+document.addEventListener("DOMContentLoaded", () => {
+  // NAV LINKS (top bar)
+  document.querySelectorAll("[data-screen]").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const screenName = link.dataset.screen;
+      showScreen(`screen-${screenName}`);
+    });
+  });
+
+  // NEXT/BACK buttons between screens
+  document.querySelectorAll("[data-goto]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.goto;
+      showScreen(target);
+    });
+  });
+
+  // Slot selection
+  document.querySelectorAll(".slot-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".slot-btn").forEach((b) => {
+        b.classList.remove("active");
+      });
+      btn.classList.add("active");
+      selectedSlot = {
+        day: btn.dataset.day,
+        time: btn.dataset.time,
+      };
+    });
+  });
+
+  // Membership selection
+  document.querySelectorAll(".membership-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".membership-btn").forEach((b) =>
+        b.classList.remove("active")
+      );
+      btn.classList.add("active");
+      selectedMembership = btn.dataset.type;
+    });
+  });
+
+  // Trainer selection
+  document.querySelectorAll(".trainer-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".trainer-card").forEach((c) =>
+        c.classList.remove("active")
+      );
+      card.classList.add("active");
+      selectedTrainer = card.dataset.trainer;
+    });
+  });
+
+  // Booking form submit (save to localStorage as JSON)
+  const form = document.getElementById("booking-form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (!selectedSlot) {
+      alert("Please select a day and time slot first.");
+      showScreen("screen-booking");
+      return;
+    }
+
+    if (!selectedMembership) {
+      alert("Please choose a membership type.");
+      showScreen("screen-booking");
+      return;
+    }
+
+    if (!selectedTrainer) {
+      alert("Please select a trainer.");
+      showScreen("screen-trainers");
+      return;
+    }
+
+    const booking = {
+      slot: selectedSlot,
+      membershipType: selectedMembership,
+      trainer: selectedTrainer,
+      student: {
+        firstName: document.getElementById("firstName").value.trim(),
+        middleName: document.getElementById("middleName").value.trim(),
+        lastName: document.getElementById("lastName").value.trim(),
+        birthMonth: document.getElementById("birthMonth").value.trim(),
+        birthDay: document.getElementById("birthDay").value.trim(),
+        birthYear: document.getElementById("birthYear").value.trim(),
+      },
+      savedAt: new Date().toLocaleString(),
+    };
+
+    // Read existing array from localStorage, push new booking, then save
+    let existing = [];
+    const raw = localStorage.getItem("gymBookings");
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) existing = parsed;
+      } catch {
+        // ignore corrupted data and overwrite with new array
+      }
+    }
+
+    existing.push(booking);
+    localStorage.setItem("gymBookings", JSON.stringify(existing));
+
+    alert("Booking saved successfully using JSON + localStorage!");
+
+    // Show summary screen with updated data
+    showScreen("screen-summary");
+    loadLastBooking();
+  });
+
+  // Reload summary button
+  document
+    .getElementById("reload-summary-btn")
+    .addEventListener("click", loadLastBooking);
+
+  // Load summary once on first open, if any data exists
+  loadLastBooking();
+});
